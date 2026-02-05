@@ -3,6 +3,7 @@ using System;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+
 //app.Use(async (context, next) =>
 //{
 //    await next(context);
@@ -15,12 +16,20 @@ app.UseRouting();
 //    await next(context);
 //});
 
+
+
+
 app.UseEndpoints(endpoint =>
 {
-    endpoint.MapGet("/employees", async (HttpContext context) =>
+
+    endpoint.MapGet("/employees/{id:int?}", async (HttpContext context) =>
     {
-        await context.Response.WriteAsync("Get Employees");
+        //var empId = context.Request.RouteValues["id"] ;
+
+        await context.Response.WriteAsync($"Get Employees ");
     });
+
+    List<int> Orders = null;
 
     endpoint.MapPost("/employees", async (HttpContext context) =>
     {
@@ -39,3 +48,6 @@ app.UseEndpoints(endpoint =>
 });
 
 app.Run();
+
+
+
