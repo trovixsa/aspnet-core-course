@@ -1,0 +1,41 @@
+﻿
+@model List<Employee>
+@{
+    ViewBag.HeaderTitle = "Employee List";
+    ViewBag.PageTitle = "Employee List";
+}
+
+<div>
+    <a href="@Url.Action("AddEmployee","Employees")" class="btn btn-primary">Add Employee</a>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped gy-7 gs-7">
+        <thead>
+            <tr class="fw-semibold fs-6 text-gray-800 border-bottom border-gray-200">
+            <th>Id</th>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Department</td>
+                <td>
+       <a href="@Url.Action("EmployeeDetails","Employees",
+    new{employeeId  = item.Id})">Details</a>
+                </td>
+            </tr>
+        }
+        </tbody>
+    </table>
+</div>
+
+
+
+
