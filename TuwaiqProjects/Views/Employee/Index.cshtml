@@ -1,0 +1,58 @@
+﻿@using TuwaiqProjects.Domain.Employees
+@model List<Employee>
+@{ }
+
+@section Scripts {
+    <script>
+        function loadEmployee(){
+            let filterText = $("#searchInput").val();
+            $.ajax({
+                url: '/Employee/FilterEmployees',
+                type: 'GET',
+                data: { filter: filterText,pageIdex, pageSize },
+                success: function (data) {
+                    debugger;
+                    let tbody = $("table tbody");
+                    tbody.empty();
+                    data.forEach(employee => {
+                        let row = `<tr>
+                            <td>${employee.name}</td>
+                            <td>${employee.employeeId}</td>
+                            <td>${employee.department?.name}</td>
+                        </tr>`;
+                        tbody.append(row);
+                    });
+                },
+                error: function (error) {
+                    console.error('Error fetching employees:', error);
+                }
+            });
+        }
+    </script>
+}
+<h1>Employees</h1>
+<div>
+    <input type="text" id="searchInput" placeholder="Search by name..." class="form-control mb-3" />
+    <a class="btn btn-primary" onclick="loadEmployee();">Filter</a>
+</div>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>EmployeeId</th>
+        <th>Department</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var employee in Model)
+    {
+        <tr>
+            <td>@employee.Name</td>
+            <td>@employee.EmployeeId</td>
+            <td>@employee.Department?.Name</td>
+        </tr>
+        }
+    </tbody>
+</table>
